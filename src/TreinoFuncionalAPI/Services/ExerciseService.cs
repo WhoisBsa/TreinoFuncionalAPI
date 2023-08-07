@@ -9,7 +9,7 @@ namespace TreinoFuncionalAPI.Services
     public class ExerciseService
     {
         private readonly IDynamoDBContext _dynamoDb;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ExerciseService(IDynamoDBContext dynamoDb, IMapper mapper)
         {

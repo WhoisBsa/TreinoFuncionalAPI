@@ -2,6 +2,8 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using TreinoFuncionalAPI.Services;
 
+var MyAllowSpecificOrigin = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ExerciseService>();
@@ -21,11 +23,25 @@ builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 // package will act as the webserver translating request and responses between the Lambda event source and ASP.NET Core.
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy(
+        name: MyAllowSpecificOrigin,
+        policy => 
+        {
+            policy.WithOrigins(
+                "http://localhost:3000"
+            );
+        }
+    );
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors(MyAllowSpecificOrigin);
 
 app.MapGet("/", () => "Welcome to running ASP.NET Core Minimal API on AWS Lambda");
 

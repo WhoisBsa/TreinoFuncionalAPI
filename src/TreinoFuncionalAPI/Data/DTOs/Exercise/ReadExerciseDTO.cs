@@ -7,12 +7,12 @@ namespace TreinoFuncionalAPI.Data.DTOs.Exercise
         [DynamoDBHashKey("id")]
         public Guid Id { get; set; }
         [DynamoDBProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [DynamoDBProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [DynamoDBProperty("example_url")]
-        public string ExampleUrl { get; set; }
+        public string? ExampleUrl { get; set; }
         [DynamoDBProperty("category")]
-        public string Category { get; set; }
+        public string? Category { get; set; }
     }
 }
